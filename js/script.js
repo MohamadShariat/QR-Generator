@@ -5,6 +5,8 @@ const spinner = document.querySelector('#spinner');
 const onGenerateSubmit = e => {
   e.preventDefault();
 
+  clearUI();
+
   const url = document.querySelector('#url').value;
   const size = document.querySelector('#size').value;
 
@@ -15,8 +17,18 @@ const onGenerateSubmit = e => {
 
     setTimeout(() => {
       hideSpinner();
+
+      generateQRCode(url, size);
     }, 1000);
   }
+};
+
+const generateQRCode = (url, size) => {
+  const qrcode = new QRCode('qrcode', {
+    text: url,
+    width: size,
+    height: size,
+  });
 };
 
 const showSpinner = () => {
@@ -25,6 +37,10 @@ const showSpinner = () => {
 
 const hideSpinner = () => {
   spinner.style.display = 'none';
+};
+
+const clearUI = () => {
+  qr.innerHTML = '';
 };
 
 hideSpinner();
